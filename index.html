@@ -6,51 +6,33 @@
   <meta name="theme-color" content="#1a472a">
   <title>런던 한인 골프 대회 2025</title>
   <link rel="manifest" href="manifest.json">
-  <link rel="apple-touch-icon" href="icon.png">
   <style>
     *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-    body{font-family:'Apple SD Gothic Neo','Noto Sans KR','Malgun Gothic',sans-serif;background:#f0f2f0;min-height:100vh;overscroll-behavior:none}
+    body{font-family:'Apple SD Gothic Neo','Noto Sans KR','Malgun Gothic',sans-serif;background:#f0f2f0;min-height:100vh}
     :root{--green:#1a472a;--green2:#2d6a4f;--green3:#52b788;--green4:#d8f3dc;--gold:#b7860b;--gold2:#fef9e7;--red:#c0392b;--red2:#fdedec;--gray:#6c757d;--border:#e5e7eb}
-
-    /* ── LAYOUT ── */
     .screen{display:none;flex-direction:column;min-height:100vh;max-width:480px;margin:0 auto;background:#f0f2f0}
     .screen.active{display:flex}
     .scroll{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding-bottom:24px}
-
-    /* ── HEADER ── */
     .hdr{background:var(--green);color:#fff;padding:14px 16px 12px;flex-shrink:0}
     .hdr-back{background:none;border:none;color:rgba(255,255,255,.75);font-size:14px;cursor:pointer;padding:0 0 8px;display:flex;align-items:center;gap:4px;font-family:inherit}
-    .hdr h2{font-size:18px;font-weight:700;margin:0}
+    .hdr h2{font-size:18px;font-weight:700}
     .hdr p{font-size:12px;opacity:.72;margin:4px 0 0}
-
-    /* ── CARDS ── */
     .card{background:#fff;border-radius:14px;padding:16px;margin:0 12px 12px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
-    .card-title{font-size:13px;font-weight:700;color:var(--gray);margin-bottom:12px;display:flex;align-items:center;gap:6px;text-transform:uppercase;letter-spacing:.4px}
-
-    /* ── BUTTONS ── */
+    .card-title{font-size:13px;font-weight:700;color:var(--gray);margin-bottom:12px;text-transform:uppercase;letter-spacing:.4px}
     .btn{display:block;width:100%;padding:14px;border:none;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;transition:transform .1s,opacity .15s}
     .btn:active{transform:scale(.97)}
     .btn-green{background:var(--green2);color:#fff}
     .btn-outline{background:#fff;border:2px solid var(--green2);color:var(--green2)}
-    .btn-gold{background:var(--gold);color:#fff}
     .btn-sm{padding:10px 16px;font-size:13px;width:auto;display:inline-block}
-
-    /* ── INPUT ── */
     .inp{width:100%;padding:11px 13px;border:1.5px solid var(--border);border-radius:10px;font-size:15px;outline:none;font-family:inherit;transition:border-color .15s;background:#fff}
     .inp:focus{border-color:var(--green3)}
 
-    /* ── HOME ── */
-    .home-hero{background:var(--green);color:#fff;padding:20px 16px 24px;text-align:center}
-    .home-hero h1{font-size:21px;font-weight:800;margin-bottom:4px}
-    .home-hero p{font-size:13px;opacity:.75}
-    .status-pill{display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,.15);border-radius:20px;padding:4px 10px;font-size:11px;margin-top:8px}
-    .dot{width:7px;height:7px;border-radius:50%;background:#4ade80}
-    .dot.off{background:#f87171}
-    .player-row{display:flex;justify-content:space-between;align-items:center;padding:11px 13px;border-radius:10px;margin-bottom:5px;cursor:pointer;border:2px solid transparent;transition:all .15s;background:#fafafa}
-    .player-row:hover,.player-row:active{background:var(--green4)}
-    .player-row.sel{background:var(--green4);border-color:var(--green3)}
-    .player-row .nm{font-weight:700;font-size:15px;color:#1a1a1a}
-    .player-row .mt{font-size:11px;color:var(--gray);margin-top:2px}
+    /* 드롭다운 */
+    .select-wrap{position:relative;margin-bottom:10px}
+    .select-wrap::after{content:'▼';position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:11px;color:var(--gray);pointer-events:none}
+    select.inp{appearance:none;-webkit-appearance:none;padding-right:36px;cursor:pointer;background:#fff}
+    select.inp:focus{border-color:var(--green3)}
+
     .sel-bar{background:var(--green4);border-radius:12px;padding:13px 14px;margin:0 12px 10px;display:flex;justify-content:space-between;align-items:center;border:1.5px solid var(--green3)}
     .nav-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 12px 12px}
     .nav-card{background:#fff;border:none;border-radius:14px;padding:18px 12px;cursor:pointer;text-align:center;box-shadow:0 1px 4px rgba(0,0,0,.07);transition:transform .1s}
@@ -59,10 +41,13 @@
     .nav-card .lbl{font-size:13px;font-weight:700;color:var(--green)}
     .nav-card.cere{grid-column:span 2;background:var(--gold2);border:1.5px solid #d4a843}
     .nav-card.cere .lbl{color:var(--gold)}
-
-    /* ── SCORE ── */
+    .home-hero{background:var(--green);color:#fff;padding:20px 16px 24px;text-align:center}
+    .home-hero h1{font-size:21px;font-weight:800;margin-bottom:4px}
+    .home-hero p{font-size:13px;opacity:.75}
+    .status-pill{display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,.15);border-radius:20px;padding:4px 10px;font-size:11px;margin-top:8px}
+    .dot{width:7px;height:7px;border-radius:50%;background:#4ade80}
+    .dot.off{background:#f87171}
     .total-banner{background:var(--green2);color:#fff;border-radius:14px;padding:16px 20px;margin:12px 12px 0;display:flex;justify-content:space-between;align-items:center}
-    .total-banner .lbl{font-size:14px;opacity:.85}
     .total-banner .num{font-size:36px;font-weight:800}
     .hole-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
     .hole-cell .hl{font-size:10px;color:var(--gray);margin-bottom:4px;text-align:center}
@@ -72,35 +57,24 @@
     .hole-inp.eagle{border-color:#15803d;background:#bbf7d0;color:#14532d}
     .hole-inp.bogey{border-color:#d97706;background:#fef3c7;color:#92400e}
     .hole-inp.dbogey{border-color:var(--red);background:var(--red2);color:var(--red)}
-    .half-sum{text-align:right;font-size:13px;font-weight:700;color:var(--gray);margin-top:8px;padding-right:2px}
+    .half-sum{text-align:right;font-size:13px;font-weight:700;color:var(--gray);margin-top:8px}
     .msg-ok{background:var(--green4);color:var(--green2);border-radius:10px;padding:12px;text-align:center;font-weight:700;font-size:14px;margin-top:10px}
     .msg-off{background:#fef9e7;color:#92400e;border-radius:10px;padding:12px;text-align:center;font-weight:700;font-size:13px;margin-top:10px}
-
-    /* ── LEADERBOARD ── */
     .tab-bar{display:flex;background:#fff;border-bottom:1.5px solid var(--border);flex-shrink:0}
     .tab{flex:1;padding:13px;border:none;background:none;font-size:14px;font-weight:600;font-family:inherit;cursor:pointer;color:var(--gray);border-bottom:3px solid transparent;transition:all .15s}
     .tab.on{color:var(--green2);border-color:var(--green2)}
     .rank-row{background:#fff;border-radius:12px;padding:13px 14px;margin:0 12px 8px;display:flex;align-items:center;gap:12px;box-shadow:0 1px 3px rgba(0,0,0,.05)}
     .badge{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;flex-shrink:0}
-    .b1{background:#ffd700;color:#78350f}
-    .b2{background:#e2e8f0;color:#475569}
-    .b3{background:#f97316;color:#fff}
-    .bn{background:#f1f5f9;color:#94a3b8}
+    .b1{background:#ffd700;color:#78350f}.b2{background:#e2e8f0;color:#475569}.b3{background:#f97316;color:#fff}.bn{background:#f1f5f9;color:#94a3b8}
     .rinfo{flex:1;min-width:0}
-    .rname{font-weight:700;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .rname{font-weight:700;font-size:15px}
     .rmeta{font-size:11px;color:var(--gray);margin-top:2px}
-    .rscore{font-size:26px;font-weight:800;color:var(--green2);text-align:right}
-    .runit{font-size:11px;color:var(--gray);text-align:right}
-
-    /* ── EVENTS ── */
+    .rscore{font-size:26px;font-weight:800;color:var(--green2)}
+    .runit{font-size:11px;color:var(--gray)}
     .evt-card{background:#fff;border-radius:14px;padding:15px;margin:0 12px 10px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
     .evt-title{font-size:14px;font-weight:700;color:var(--green);margin-bottom:11px}
     .evt-current{background:var(--green4);border-radius:10px;padding:11px;margin-bottom:11px}
-    .evt-holder{font-weight:700;font-size:15px}
-    .evt-record{font-size:12px;color:#555;margin-top:2px}
     .evt-inputs{display:flex;gap:8px;margin-bottom:8px}
-
-    /* ── CEREMONY ── */
     #s-ceremony{background:var(--green);min-height:100vh;max-width:480px;margin:0 auto;display:none;flex-direction:column}
     #s-ceremony.active{display:flex}
     .cer-top{padding:16px 16px 0;color:#fff}
@@ -116,26 +90,25 @@
     .cer-nm{font-size:18px;font-weight:800;color:#fff}
     .cer-sc{font-size:13px;color:rgba(255,255,255,.65);margin-top:3px}
     .evt-results-box{background:rgba(255,255,255,.09);border-radius:14px;padding:14px;margin-bottom:12px}
-    .evt-res-title{font-size:13px;font-weight:700;color:rgba(255,255,255,.85);margin-bottom:10px;text-transform:uppercase;letter-spacing:.4px}
+    .evt-res-title{font-size:13px;font-weight:700;color:rgba(255,255,255,.85);margin-bottom:10px}
     .evt-res-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.1);font-size:13px;color:#fff}
     .evt-res-row:last-child{border-bottom:none}
     .evt-res-lbl{opacity:.65;font-size:12px}
     .lottery-box{background:rgba(255,255,255,.07);border:2px solid rgba(255,215,0,.45);border-radius:18px;padding:24px 20px;text-align:center}
     .lot-title{font-size:18px;font-weight:800;color:#fff;margin-bottom:4px}
     .lot-sub{font-size:12px;color:rgba(255,255,255,.55);margin-bottom:18px}
-    .lot-num{font-size:72px;font-weight:900;color:#ffd700;min-height:88px;display:flex;align-items:center;justify-content:center;letter-spacing:3px;font-variant-numeric:tabular-nums}
-    .btn-lot{background:#ffd700;color:var(--green);border:none;border-radius:14px;padding:15px 32px;font-size:17px;font-weight:800;cursor:pointer;width:100%;margin-top:16px;font-family:inherit;transition:opacity .15s}
-    .btn-lot:disabled{opacity:.35;cursor:not-allowed}
+    .lot-num{font-size:72px;font-weight:900;color:#ffd700;min-height:88px;display:flex;align-items:center;justify-content:center;letter-spacing:3px}
+    .btn-lot{background:#ffd700;color:var(--green);border:none;border-radius:14px;padding:15px 32px;font-size:17px;font-weight:800;cursor:pointer;width:100%;margin-top:16px;font-family:inherit}
+    .btn-lot:disabled{opacity:.35}
     .winner-item{background:rgba(255,215,0,.18);border-radius:10px;padding:11px;margin:6px 0;color:#fff;font-weight:700;font-size:17px;text-align:center}
-
-    /* ── EMPTY ── */
     .empty{text-align:center;padding:48px 20px;color:var(--gray)}
-    .empty .big{font-size:44px;margin-bottom:12px}
+    .loading{text-align:center;padding:20px;color:var(--gray);font-size:13px}
+    .err-box{background:#fde8e8;border-radius:10px;padding:12px;margin:0 12px 10px;font-size:13px;color:#c0392b;text-align:center}
   </style>
 </head>
 <body>
 
-<!-- ══ HOME ══════════════════════════════ -->
+<!-- ══ HOME ══ -->
 <div id="s-home" class="screen active">
   <div class="home-hero">
     <h1>⛳ 런던 한인 골프 대회</h1>
@@ -145,12 +118,20 @@
       <span id="online-txt">연결 확인 중...</span>
     </div>
   </div>
-
   <div class="scroll" style="padding-top:12px">
+
+    <div id="api-err" class="err-box" style="display:none">
+      ⚠️ 참가자 데이터를 불러오지 못했습니다. 인터넷을 확인해주세요.
+    </div>
+
     <div class="card">
       <div class="card-title">👤 참가자 선택</div>
-      <input class="inp" id="search-inp" placeholder="이름 또는 조번호 검색..." autocomplete="off" oninput="filterList()" style="margin-bottom:10px">
-      <div id="player-list" style="max-height:220px;overflow-y:auto"></div>
+      <div id="loading-players" class="loading">참가자 목록 불러오는 중...</div>
+      <div class="select-wrap" id="select-wrap" style="display:none">
+        <select class="inp" id="player-select" onchange="onSelectPlayer()">
+          <option value="">— 이름을 선택하세요 —</option>
+        </select>
+      </div>
     </div>
 
     <div id="sel-bar" class="sel-bar" style="display:none">
@@ -163,22 +144,19 @@
 
     <div class="nav-grid">
       <button class="nav-card" onclick="gotoLB()">
-        <div class="ico">🏆</div>
-        <div class="lbl">리더보드</div>
+        <div class="ico">🏆</div><div class="lbl">리더보드</div>
       </button>
       <button class="nav-card" onclick="gotoEvents()">
-        <div class="ico">🎯</div>
-        <div class="lbl">이벤트 기록</div>
+        <div class="ico">🎯</div><div class="lbl">이벤트 기록</div>
       </button>
       <button class="nav-card cere" onclick="gotoCeremony()">
-        <div class="ico">🎉</div>
-        <div class="lbl">시상식 모드</div>
+        <div class="ico">🎉</div><div class="lbl">시상식 모드</div>
       </button>
     </div>
   </div>
 </div>
 
-<!-- ══ SCORE ══════════════════════════════ -->
+<!-- ══ SCORE ══ -->
 <div id="s-score" class="screen">
   <div class="hdr">
     <button class="hdr-back" onclick="go('home')">← 뒤로</button>
@@ -187,17 +165,17 @@
   </div>
   <div class="scroll">
     <div class="total-banner">
-      <span class="lbl">총합 스코어</span>
+      <span style="font-size:14px;opacity:.85">총합 스코어</span>
       <div><span class="num" id="total-disp">0</span><span style="font-size:14px;opacity:.7"> 타</span></div>
     </div>
     <div style="height:10px"></div>
     <div class="card">
-      <div class="card-title">🚩 전반 (1 ~ 9홀)</div>
+      <div class="card-title">🚩 전반 (1~9홀)</div>
       <div class="hole-grid" id="front9"></div>
       <div class="half-sum">전반 합계: <span id="ft">0</span></div>
     </div>
     <div class="card">
-      <div class="card-title">🚩 후반 (10 ~ 18홀)</div>
+      <div class="card-title">🚩 후반 (10~18홀)</div>
       <div class="hole-grid" id="back9"></div>
       <div class="half-sum">후반 합계: <span id="bt">0</span></div>
     </div>
@@ -208,7 +186,7 @@
   </div>
 </div>
 
-<!-- ══ LEADERBOARD ══════════════════════════ -->
+<!-- ══ LEADERBOARD ══ -->
 <div id="s-leaderboard" class="screen">
   <div class="hdr">
     <button class="hdr-back" onclick="go('home')">← 뒤로</button>
@@ -219,13 +197,13 @@
     <button class="tab" onclick="setTab('남',this)">남성</button>
     <button class="tab" onclick="setTab('여',this)">여성</button>
   </div>
-  <div style="padding:10px 12px 4px;display:flex;gap:8px">
+  <div style="padding:10px 12px 4px">
     <button class="btn btn-outline btn-sm" onclick="loadScores()">🔄 새로고침</button>
   </div>
   <div class="scroll" id="lb-list"></div>
 </div>
 
-<!-- ══ EVENTS ══════════════════════════════ -->
+<!-- ══ EVENTS ══ -->
 <div id="s-events" class="screen">
   <div class="hdr">
     <button class="hdr-back" onclick="go('home')">← 뒤로</button>
@@ -235,7 +213,7 @@
   <div class="scroll" style="padding-top:12px" id="events-area"></div>
 </div>
 
-<!-- ══ CEREMONY ══════════════════════════════ -->
+<!-- ══ CEREMONY ══ -->
 <div id="s-ceremony">
   <div class="cer-top">
     <button onclick="go('home')" style="background:none;border:none;color:rgba(255,255,255,.7);font-size:14px;cursor:pointer;font-family:inherit">← 뒤로</button>
@@ -256,131 +234,132 @@
 </div>
 
 <script>
-// ═══════════════════════════════════════════
-//  설정 — API URL만 바꾸면 됩니다
-// ═══════════════════════════════════════════
 const API = "https://script.google.com/macros/s/AKfycbxWB2R4lDjNx1vsvHFzYlplw0EFHauqk9uS4X_awQhViLvVED5wZD932RAoblClGSHa/exec";
-const PAR = [4,4,3,5,4,3,4,5,4, 4,3,5,4,4,3,5,4,4]; // 18홀 파
-
+const PAR = [4,4,3,5,4,3,4,5,4,4,3,5,4,4,3,5,4,4];
 const EVENTS_DEF = [
-  {key:"cp_남", label:"클로지스트 투 핀 — 남성", hole:"7번홀", ph:"예: 85cm"},
-  {key:"cp_여", label:"클로지스트 투 핀 — 여성", hole:"7번홀", ph:"예: 120cm"},
-  {key:"ld_남", label:"롱기스트 드라이브 — 남성", hole:"14번홀", ph:"예: 245m"},
-  {key:"ld_여", label:"롱기스트 드라이브 — 여성", hole:"14번홀", ph:"예: 178m"}
+  {key:"cp_남",label:"클로지스트 투 핀 — 남성",hole:"7번홀",ph:"예: 85cm"},
+  {key:"cp_여",label:"클로지스트 투 핀 — 여성",hole:"7번홀",ph:"예: 120cm"},
+  {key:"ld_남",label:"롱기스트 드라이브 — 남성",hole:"14번홀",ph:"예: 245m"},
+  {key:"ld_여",label:"롱기스트 드라이브 — 여성",hole:"14번홀",ph:"예: 178m"}
 ];
 
-// ═══════════════════════════════════════════
-//  상태
-// ═══════════════════════════════════════════
-let players = [], allScores = [], eventsData = {};
-let selectedPlayer = null, currentTab = "전체";
-let holes = Array(18).fill("");
+let players=[], allScores=[], eventsData={};
+let selectedPlayer=null, currentTab="전체";
+let holes=Array(18).fill("");
 
-// ═══════════════════════════════════════════
-//  화면 전환
-// ═══════════════════════════════════════════
-function go(s) {
-  document.querySelectorAll('.screen').forEach(e => e.classList.remove('active'));
-  document.getElementById('s-ceremony').style.display = 'none';
-  const el = document.getElementById('s-' + s);
-  if (el) el.classList.add('active');
+function go(s){
+  document.querySelectorAll('.screen').forEach(e=>e.classList.remove('active'));
+  document.getElementById('s-ceremony').style.display='none';
+  const el=document.getElementById('s-'+s);
+  if(el) el.classList.add('active');
 }
+function gotoLB(){loadScores();go('leaderboard')}
+function gotoEvents(){renderEvents();go('events')}
+function gotoCeremony(){loadScores();go('ceremony');renderCeremony();document.getElementById('s-ceremony').style.display='flex';}
 
-function gotoLB()      { loadScores(); go('leaderboard'); }
-function gotoEvents()  { renderEvents(); go('events'); }
-function gotoCeremony(){ loadScores(); go('ceremony'); renderCeremony(); document.getElementById('s-ceremony').style.display='flex'; }
-
-// ═══════════════════════════════════════════
-//  API 호출
-// ═══════════════════════════════════════════
-async function apiFetch(params) {
-  const url = API + '?' + new URLSearchParams(params);
-  const r = await fetch(url, { redirect: 'follow' });
+async function apiFetch(params){
+  const url=API+'?'+new URLSearchParams(params);
+  const r=await fetch(url,{redirect:'follow'});
+  return r.json();
+}
+async function apiPost(body){
+  const r=await fetch(API,{method:'POST',redirect:'follow',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
   return r.json();
 }
 
-async function apiPost(body) {
-  const r = await fetch(API, {
-    method: 'POST', redirect: 'follow',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(body)
-  });
-  return r.json();
-}
-
-// ═══════════════════════════════════════════
-//  참가자
-// ═══════════════════════════════════════════
-async function loadPlayers() {
-  try {
-    const d = await apiFetch({ action: 'getPlayers' });
-    if (d.success && d.players.length) {
-      players = d.players;
-      localStorage.setItem('gPlayers', JSON.stringify(players));
-    } else loadPlayersCache();
-  } catch { loadPlayersCache(); }
-  renderPlayerList();
-}
-
-function loadPlayersCache() {
-  const c = localStorage.getItem('gPlayers');
-  players = c ? JSON.parse(c) : [];
-}
-
-function renderPlayerList() {
-  const q = document.getElementById('search-inp').value.trim().toLowerCase();
-  const list = players.filter(p =>
-    p.name.includes(q) || String(p.team).includes(q)
-  );
-  const el = document.getElementById('player-list');
-  if (!list.length) {
-    el.innerHTML = '<div style="text-align:center;padding:16px;color:var(--gray);font-size:13px">검색 결과 없음</div>';
-    return;
+// ── 참가자 드롭다운 ──
+async function loadPlayers(){
+  document.getElementById('loading-players').style.display='block';
+  document.getElementById('select-wrap').style.display='none';
+  document.getElementById('api-err').style.display='none';
+  try{
+    const d=await apiFetch({action:'getPlayers'});
+    if(d.success && d.players.length>0){
+      players=d.players;
+      localStorage.setItem('gPlayers',JSON.stringify(players));
+    } else {
+      loadPlayersCache();
+    }
+  } catch(e){
+    console.error('loadPlayers error:',e);
+    loadPlayersCache();
   }
-  el.innerHTML = list.map(p => `
-    <div class="player-row ${selectedPlayer?.id === p.id ? 'sel' : ''}" onclick="selectPlayer('${p.id}')">
-      <div>
-        <div class="nm">${p.name}</div>
-        <div class="mt">${p.gender}성 · 핸디 ${p.group}그룹 · ${p.team}조</div>
-      </div>
-      <span style="color:var(--gray);font-size:18px">›</span>
-    </div>`).join('');
+  renderDropdown();
 }
 
-function filterList() { renderPlayerList(); }
-
-function selectPlayer(id) {
-  selectedPlayer = players.find(p => p.id === id);
-  const existing = allScores.find(s => s.playerId === id);
-  holes = existing ? existing.scores.map(String) : Array(18).fill('');
-  renderPlayerList();
-  document.getElementById('sel-bar').style.display = 'flex';
-  document.getElementById('sel-name-txt').textContent = selectedPlayer.name;
-  document.getElementById('sel-meta-txt').textContent =
-    `${selectedPlayer.gender}성 · ${selectedPlayer.group}그룹 · ${selectedPlayer.team}조`;
+function loadPlayersCache(){
+  const c=localStorage.getItem('gPlayers');
+  if(c){ players=JSON.parse(c); }
+  else{
+    document.getElementById('api-err').style.display='block';
+    players=[];
+  }
 }
 
-function goScore() {
-  if (!selectedPlayer) return;
-  document.getElementById('score-hdr').textContent = selectedPlayer.name + ' 스코어 입력';
-  document.getElementById('score-sub').textContent = selectedPlayer.team + '조 · ' + selectedPlayer.gender + '성';
+function renderDropdown(){
+  document.getElementById('loading-players').style.display='none';
+  const sel=document.getElementById('player-select');
+  // 성별별로 그룹핑
+  const men=players.filter(p=>p.gender==='남').sort((a,b)=>a.name.localeCompare(b.name,'ko'));
+  const women=players.filter(p=>p.gender==='여').sort((a,b)=>a.name.localeCompare(b.name,'ko'));
+  sel.innerHTML='<option value="">— 이름을 선택하세요 —</option>';
+  if(men.length){
+    const og=document.createElement('optgroup');
+    og.label='남성';
+    men.forEach(p=>{
+      const o=document.createElement('option');
+      o.value=p.id;
+      o.textContent=`${p.name} (${p.group}그룹 · ${p.team||'조미정'}조)`;
+      og.appendChild(o);
+    });
+    sel.appendChild(og);
+  }
+  if(women.length){
+    const og=document.createElement('optgroup');
+    og.label='여성';
+    women.forEach(p=>{
+      const o=document.createElement('option');
+      o.value=p.id;
+      o.textContent=`${p.name} (${p.group}그룹 · ${p.team||'조미정'}조)`;
+      og.appendChild(o);
+    });
+    sel.appendChild(og);
+  }
+  document.getElementById('select-wrap').style.display=players.length?'block':'none';
+  if(!players.length) document.getElementById('api-err').style.display='block';
+}
+
+function onSelectPlayer(){
+  const sel=document.getElementById('player-select');
+  const id=sel.value;
+  if(!id){ document.getElementById('sel-bar').style.display='none'; selectedPlayer=null; return; }
+  selectedPlayer=players.find(p=>p.id===id);
+  const existing=allScores.find(s=>s.playerId===id);
+  holes=existing?existing.scores.map(String):Array(18).fill('');
+  document.getElementById('sel-bar').style.display='flex';
+  document.getElementById('sel-name-txt').textContent=selectedPlayer.name;
+  document.getElementById('sel-meta-txt').textContent=
+    `${selectedPlayer.gender==='남'?'남성':'여성'} · ${selectedPlayer.group}그룹 · ${selectedPlayer.team||'-'}조`;
+}
+
+function goScore(){
+  if(!selectedPlayer)return;
+  document.getElementById('score-hdr').textContent=selectedPlayer.name+' 스코어 입력';
+  document.getElementById('score-sub').textContent=selectedPlayer.team+'조 · '+selectedPlayer.gender+'성';
   buildHoles();
   go('score');
 }
 
-// ═══════════════════════════════════════════
-//  스코어 입력
-// ═══════════════════════════════════════════
-function buildHoles() {
-  ['front9','back9'].forEach((id, half) => {
-    const wrap = document.getElementById(id);
-    wrap.innerHTML = '';
-    for (let i = 0; i < 9; i++) {
-      const idx = half * 9 + i;
-      const cell = document.createElement('div');
-      cell.className = 'hole-cell';
-      cell.innerHTML = `
-        <div class="hl">${idx+1}홀 (파${PAR[idx]})</div>
+// ── 스코어 ──
+function buildHoles(){
+  ['front9','back9'].forEach((id,half)=>{
+    const wrap=document.getElementById(id);
+    wrap.innerHTML='';
+    for(let i=0;i<9;i++){
+      const idx=half*9+i;
+      const cell=document.createElement('div');
+      cell.className='hole-cell';
+      cell.innerHTML=`<div class="hl">${idx+1}홀 (파${PAR[idx]})</div>
         <input class="hole-inp" id="h${idx}" type="number" inputmode="numeric"
           min="1" max="15" value="${holes[idx]||''}"
           oninput="onHoleInput(${idx},this.value)">`;
@@ -390,239 +369,171 @@ function buildHoles() {
   calcTotals();
 }
 
-function onHoleInput(idx, val) {
-  holes[idx] = val;
-  const inp = document.getElementById('h' + idx);
-  const v = parseInt(val);
-  inp.className = 'hole-inp';
-  if (val === '') return;
-  if (v <= PAR[idx] - 2) inp.classList.add('eagle');
-  else if (v === PAR[idx] - 1) inp.classList.add('birdie');
-  else if (v === PAR[idx] + 1) inp.classList.add('bogey');
-  else if (v >= PAR[idx] + 2) inp.classList.add('dbogey');
+function onHoleInput(idx,val){
+  holes[idx]=val;
+  const inp=document.getElementById('h'+idx);
+  const v=parseInt(val);
+  inp.className='hole-inp';
+  if(!val)return;
+  if(v<=PAR[idx]-2)inp.classList.add('eagle');
+  else if(v===PAR[idx]-1)inp.classList.add('birdie');
+  else if(v===PAR[idx]+1)inp.classList.add('bogey');
+  else if(v>=PAR[idx]+2)inp.classList.add('dbogey');
   calcTotals();
 }
 
-function calcTotals() {
-  const nums = holes.map(h => parseInt(h) || 0);
-  const tot = nums.reduce((a,b) => a+b, 0);
-  document.getElementById('total-disp').textContent = tot;
-  document.getElementById('ft').textContent = nums.slice(0,9).reduce((a,b)=>a+b,0);
-  document.getElementById('bt').textContent = nums.slice(9).reduce((a,b)=>a+b,0);
+function calcTotals(){
+  const nums=holes.map(h=>parseInt(h)||0);
+  document.getElementById('total-disp').textContent=nums.reduce((a,b)=>a+b,0);
+  document.getElementById('ft').textContent=nums.slice(0,9).reduce((a,b)=>a+b,0);
+  document.getElementById('bt').textContent=nums.slice(9).reduce((a,b)=>a+b,0);
 }
 
-async function saveScore() {
-  const nums = holes.map(h => parseInt(h) || 0);
-  const total = nums.reduce((a,b) => a+b, 0);
-  const data = {
-    action: 'saveScore',
-    playerId: selectedPlayer.id,
-    name: selectedPlayer.name,
-    gender: selectedPlayer.gender,
-    team: selectedPlayer.team,
-    scores: nums, total
-  };
-
-  // 로컬 저장 (오프라인 대비)
-  const pend = JSON.parse(localStorage.getItem('pendingScores') || '[]');
-  const pi = pend.findIndex(s => s.playerId === data.playerId);
-  if (pi >= 0) pend[pi] = data; else pend.push(data);
-  localStorage.setItem('pendingScores', JSON.stringify(pend));
-
-  const si = allScores.findIndex(s => s.playerId === data.playerId);
-  if (si >= 0) allScores[si] = data; else allScores.push(data);
-
-  const btn = document.getElementById('save-btn');
-  const msg = document.getElementById('save-msg');
-  btn.disabled = true; btn.textContent = '저장 중...';
-
-  try {
+async function saveScore(){
+  const nums=holes.map(h=>parseInt(h)||0);
+  const total=nums.reduce((a,b)=>a+b,0);
+  const data={action:'saveScore',playerId:selectedPlayer.id,name:selectedPlayer.name,
+    gender:selectedPlayer.gender,team:selectedPlayer.team,scores:nums,total};
+  const pend=JSON.parse(localStorage.getItem('pendingScores')||'[]');
+  const pi=pend.findIndex(s=>s.playerId===data.playerId);
+  if(pi>=0)pend[pi]=data;else pend.push(data);
+  localStorage.setItem('pendingScores',JSON.stringify(pend));
+  const si=allScores.findIndex(s=>s.playerId===data.playerId);
+  if(si>=0)allScores[si]=data;else allScores.push(data);
+  const btn=document.getElementById('save-btn');
+  const msg=document.getElementById('save-msg');
+  btn.disabled=true;btn.textContent='저장 중...';
+  try{
     await apiPost(data);
-    msg.textContent = '✅ 저장 완료!';
-    msg.className = 'msg-ok';
-  } catch {
-    msg.textContent = '📴 오프라인 저장됨 — 연결되면 자동 동기화';
-    msg.className = 'msg-off';
+    msg.textContent='✅ 저장 완료!';msg.className='msg-ok';
+  }catch{
+    msg.textContent='📴 오프라인 저장됨 — 연결되면 자동 동기화';msg.className='msg-off';
   }
-  msg.style.display = 'block';
-  btn.disabled = false; btn.textContent = '💾 스코어 저장';
-  setTimeout(() => { msg.style.display = 'none'; }, 3500);
+  msg.style.display='block';
+  btn.disabled=false;btn.textContent='💾 스코어 저장';
+  setTimeout(()=>{msg.style.display='none';},3500);
 }
 
-// ═══════════════════════════════════════════
-//  리더보드
-// ═══════════════════════════════════════════
-async function loadScores() {
-  try {
-    const d = await apiFetch({ action: 'getScores' });
-    if (d.success) {
-      allScores = d.scores;
-      localStorage.setItem('gScores', JSON.stringify(allScores));
-    }
-  } catch {
-    const c = localStorage.getItem('gScores');
-    if (c) allScores = JSON.parse(c);
-    // 오프라인 저장된 것도 합치기
-    const pend = JSON.parse(localStorage.getItem('pendingScores') || '[]');
-    pend.forEach(ps => {
-      const i = allScores.findIndex(s => s.playerId === ps.playerId);
-      if (i >= 0) allScores[i] = ps; else allScores.push(ps);
+// ── 리더보드 ──
+async function loadScores(){
+  try{
+    const d=await apiFetch({action:'getScores'});
+    if(d.success){allScores=d.scores;localStorage.setItem('gScores',JSON.stringify(allScores));}
+  }catch{
+    const c=localStorage.getItem('gScores');
+    if(c)allScores=JSON.parse(c);
+    const pend=JSON.parse(localStorage.getItem('pendingScores')||'[]');
+    pend.forEach(ps=>{
+      const i=allScores.findIndex(s=>s.playerId===ps.playerId);
+      if(i>=0)allScores[i]=ps;else allScores.push(ps);
     });
   }
   renderLeaderboard();
 }
 
-function setTab(t, el) {
-  currentTab = t;
-  document.querySelectorAll('.tab').forEach(b => b.classList.remove('on'));
+function setTab(t,el){
+  currentTab=t;
+  document.querySelectorAll('.tab').forEach(b=>b.classList.remove('on'));
   el.classList.add('on');
   renderLeaderboard();
 }
 
-function renderLeaderboard() {
-  const filtered = allScores
-    .filter(s => s.total > 0)
-    .filter(s => currentTab === '전체' || s.gender === currentTab)
-    .sort((a,b) => a.total - b.total);
-  const el = document.getElementById('lb-list');
-  if (!filtered.length) {
-    el.innerHTML = '<div class="empty"><div class="big">🏌️</div><p>아직 스코어가 없습니다</p></div>';
-    return;
-  }
-  el.innerHTML = filtered.map((s,i) => `
+function renderLeaderboard(){
+  const filtered=allScores.filter(s=>s.total>0)
+    .filter(s=>currentTab==='전체'||s.gender===currentTab)
+    .sort((a,b)=>a.total-b.total);
+  const el=document.getElementById('lb-list');
+  if(!filtered.length){el.innerHTML='<div class="empty"><p style="font-size:40px">🏌️</p><p style="margin-top:12px">아직 스코어가 없습니다</p></div>';return;}
+  el.innerHTML=filtered.map((s,i)=>`
     <div class="rank-row">
       <div class="badge ${i===0?'b1':i===1?'b2':i===2?'b3':'bn'}">${i+1}</div>
       <div class="rinfo">
         <div class="rname">${s.name}</div>
         <div class="rmeta">${s.gender==='남'?'남성':'여성'} · ${s.team}조</div>
       </div>
-      <div>
+      <div style="text-align:right">
         <div class="rscore">${s.total}</div>
         <div class="runit">타</div>
       </div>
     </div>`).join('');
 }
 
-// ═══════════════════════════════════════════
-//  이벤트 기록
-// ═══════════════════════════════════════════
-function renderEvents() {
-  document.getElementById('events-area').innerHTML = EVENTS_DEF.map(e => {
-    const cur = eventsData[e.key];
-    return `
-      <div class="evt-card">
-        <div class="evt-title">${e.label}
-          <span style="font-size:11px;font-weight:400;color:var(--gray)"> (${e.hole})</span>
-        </div>
-        ${cur ? `<div class="evt-current">
-          <div class="evt-holder">${cur.name}</div>
-          <div class="evt-record">📍 ${cur.record}</div>
-        </div>` : ''}
-        <div class="evt-inputs">
-          <input class="inp" id="en-${e.key}" placeholder="선수 이름" style="flex:1">
-          <input class="inp" id="er-${e.key}" placeholder="${e.ph}" style="flex:1.2">
-        </div>
-        <button class="btn btn-green" style="font-size:13px;padding:10px" onclick="saveEvent('${e.key}')">
-          기록 저장
-        </button>
-      </div>`;
+// ── 이벤트 ──
+function renderEvents(){
+  document.getElementById('events-area').innerHTML=EVENTS_DEF.map(e=>{
+    const cur=eventsData[e.key];
+    return `<div class="evt-card">
+      <div class="evt-title">${e.label} <span style="font-size:11px;font-weight:400;color:var(--gray)">(${e.hole})</span></div>
+      ${cur?`<div class="evt-current"><div style="font-weight:700">${cur.name}</div><div style="font-size:12px;color:#555;margin-top:2px">📍 ${cur.record}</div></div>`:''}
+      <div class="evt-inputs">
+        <input class="inp" id="en-${e.key}" placeholder="선수 이름" style="flex:1">
+        <input class="inp" id="er-${e.key}" placeholder="${e.ph}" style="flex:1.2">
+      </div>
+      <button class="btn btn-green" style="font-size:13px;padding:10px" onclick="saveEvent('${e.key}')">기록 저장</button>
+    </div>`;
   }).join('');
 }
 
-async function saveEvent(key) {
-  const name   = document.getElementById('en-' + key).value.trim();
-  const record = document.getElementById('er-' + key).value.trim();
-  if (!name || !record) return alert('이름과 기록을 입력해주세요');
-  const [type, gender] = key.split('_');
-  eventsData[key] = { name, record };
-  try {
-    await apiPost({ action:'saveEvent', eventType:type, hole: type==='cp'?7:14, gender, name, record });
-  } catch {}
+async function saveEvent(key){
+  const name=document.getElementById('en-'+key).value.trim();
+  const record=document.getElementById('er-'+key).value.trim();
+  if(!name||!record){alert('이름과 기록을 입력해주세요');return;}
+  const[type,gender]=key.split('_');
+  eventsData[key]={name,record};
+  try{await apiPost({action:'saveEvent',eventType:type,hole:type==='cp'?7:14,gender,name,record});}catch{}
   renderEvents();
 }
 
-// ═══════════════════════════════════════════
-//  시상식
-// ═══════════════════════════════════════════
-function renderCeremony() {
-  const s = [...allScores].filter(s => s.total > 0).sort((a,b) => a.total - b.total);
-  const best = s[0], worst = s[s.length - 1];
-  document.getElementById('cer-cards').innerHTML = `
-    <div class="cer-box best">
-      <div class="cer-ico">🥇</div>
-      <div class="cer-lbl">베스트 스코어</div>
-      <div class="cer-nm">${best?.name || '-'}</div>
-      <div class="cer-sc">${best?.total || '-'}타</div>
-    </div>
-    <div class="cer-box worst">
-      <div class="cer-ico">😅</div>
-      <div class="cer-lbl">워스트 스코어</div>
-      <div class="cer-nm">${worst?.name || '-'}</div>
-      <div class="cer-sc">${worst?.total || '-'}타</div>
-    </div>`;
-
-  const evKeys = Object.keys(eventsData);
-  document.getElementById('cer-events').innerHTML = `
+// ── 시상식 ──
+function renderCeremony(){
+  const s=[...allScores].filter(s=>s.total>0).sort((a,b)=>a.total-b.total);
+  const best=s[0],worst=s[s.length-1];
+  document.getElementById('cer-cards').innerHTML=`
+    <div class="cer-box best"><div class="cer-ico">🥇</div><div class="cer-lbl">베스트 스코어</div>
+      <div class="cer-nm">${best?.name||'-'}</div><div class="cer-sc">${best?.total||'-'}타</div></div>
+    <div class="cer-box worst"><div class="cer-ico">😅</div><div class="cer-lbl">워스트 스코어</div>
+      <div class="cer-nm">${worst?.name||'-'}</div><div class="cer-sc">${worst?.total||'-'}타</div></div>`;
+  const evKeys=Object.keys(eventsData);
+  document.getElementById('cer-events').innerHTML=`
     <div class="evt-res-title">🎯 이벤트 수상자</div>
-    ${evKeys.length
-      ? evKeys.map(k => {
-          const def = EVENTS_DEF.find(d => d.key === k);
-          return `<div class="evt-res-row">
-            <span class="evt-res-lbl">${def?.label || k}</span>
-            <span>${eventsData[k].name} (${eventsData[k].record})</span>
-          </div>`;
-        }).join('')
-      : '<div style="opacity:.5;font-size:13px;color:#fff;text-align:center;padding:6px 0">이벤트 기록 없음</div>'
-    }`;
+    ${evKeys.length?evKeys.map(k=>{
+      const def=EVENTS_DEF.find(d=>d.key===k);
+      return`<div class="evt-res-row"><span class="evt-res-lbl">${def?.label||k}</span><span>${eventsData[k].name} (${eventsData[k].record})</span></div>`;
+    }).join(''):'<div style="opacity:.5;font-size:13px;color:#fff;text-align:center;padding:6px 0">이벤트 기록 없음</div>'}`;
 }
 
-let lotTimer = null;
-function startLottery() {
-  const btn = document.getElementById('lot-btn');
-  const numEl = document.getElementById('lot-num');
-  const wEl = document.getElementById('winners');
-  btn.disabled = true;
-  wEl.style.display = 'none';
-  const totals = allScores.filter(s=>s.total>0).map(s=>s.total);
-  const min = totals.length ? Math.min(...totals) : 70;
-  const max = totals.length ? Math.max(...totals) : 110;
-  lotTimer = setInterval(() => {
-    numEl.textContent = Math.floor(Math.random() * (max - min + 1)) + min;
-  }, 80);
-  setTimeout(() => {
+let lotTimer=null;
+function startLottery(){
+  const btn=document.getElementById('lot-btn');
+  const numEl=document.getElementById('lot-num');
+  const wEl=document.getElementById('winners');
+  btn.disabled=true;wEl.style.display='none';
+  const totals=allScores.filter(s=>s.total>0).map(s=>s.total);
+  const min=totals.length?Math.min(...totals):70;
+  const max=totals.length?Math.max(...totals):110;
+  lotTimer=setInterval(()=>{numEl.textContent=Math.floor(Math.random()*(max-min+1))+min;},80);
+  setTimeout(()=>{
     clearInterval(lotTimer);
-    const final = Math.floor(Math.random() * (max - min + 1)) + min;
-    numEl.textContent = final;
-    btn.disabled = false; btn.textContent = '🔄 다시 추첨';
-    const winners = allScores.filter(s => s.total === final);
-    wEl.style.display = 'block';
-    wEl.innerHTML = winners.length
-      ? winners.map(w => `<div class="winner-item">🎊 ${w.name} (${w.total}타)</div>`).join('')
-      : `<div style="color:rgba(255,255,255,.55);font-size:14px;text-align:center;padding:8px 0">해당 타수 기록자 없음 — 재추첨!</div>`;
-  }, 3200);
+    const final=Math.floor(Math.random()*(max-min+1))+min;
+    numEl.textContent=final;
+    btn.disabled=false;btn.textContent='🔄 다시 추첨';
+    const winners=allScores.filter(s=>s.total===final);
+    wEl.style.display='block';
+    wEl.innerHTML=winners.length
+      ?winners.map(w=>`<div class="winner-item">🎊 ${w.name} (${w.total}타)</div>`).join('')
+      :`<div style="color:rgba(255,255,255,.55);font-size:14px;text-align:center;padding:8px">해당 타수 없음 — 재추첨!</div>`;
+  },3200);
 }
 
-// ═══════════════════════════════════════════
-//  온라인 상태
-// ═══════════════════════════════════════════
-function updateOnline() {
-  const on = navigator.onLine;
-  document.getElementById('dot').className = 'dot' + (on ? '' : ' off');
-  document.getElementById('online-txt').textContent = on ? '온라인' : '오프라인 모드';
+function updateOnline(){
+  const on=navigator.onLine;
+  document.getElementById('dot').className='dot'+(on?'':' off');
+  document.getElementById('online-txt').textContent=on?'온라인':'오프라인 모드';
 }
-window.addEventListener('online',  updateOnline);
-window.addEventListener('offline', updateOnline);
+window.addEventListener('online',updateOnline);
+window.addEventListener('offline',updateOnline);
+if('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js');
 
-// ═══════════════════════════════════════════
-//  서비스 워커 등록 (오프라인 지원)
-// ═══════════════════════════════════════════
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('sw.js');
-}
-
-// ═══════════════════════════════════════════
-//  초기화
-// ═══════════════════════════════════════════
 loadPlayers();
 loadScores();
 updateOnline();
