@@ -1,0 +1,17 @@
+{
+  "name": "런던 한인 골프 대회 2025",
+  "short_name": "골프대회",
+  "description": "2025 런던 한인 골프 대회 스코어 관리",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1a472a",
+  "theme_color": "#1a472a",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "icon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ]
+}
