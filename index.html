@@ -253,12 +253,15 @@
 
 <script>
 const API = "https://script.google.com/macros/s/AKfycbxWB2R4lDjNx1vsvHFzYlplw0EFHauqk9uS4X_awQhViLvVED5wZD932RAoblClGSHa/exec";
-const PAR = [4,4,3,5,4,3,4,5,4,4,3,5,4,4,3,5,4,4];
+// Thames Valley Golf Course (Classic 18) - Par 70
+// 전반 (Par 35): 4,5,4,3,4,3,5,3,4
+// 후반 (Par 35): 4,3,4,4,3,4,4,4,5
+const PAR = [4,5,4,3,4,3,5,3,4, 4,3,4,4,3,4,4,4,5];
 const EVENTS_DEF = [
-  {key:"cp_남",label:"클로지스트 투 핀 — 남성",hole:"7번홀",ph:"예: 85cm"},
-  {key:"cp_여",label:"클로지스트 투 핀 — 여성",hole:"7번홀",ph:"예: 120cm"},
-  {key:"ld_남",label:"롱기스트 드라이브 — 남성",hole:"14번홀",ph:"예: 245m"},
-  {key:"ld_여",label:"롱기스트 드라이브 — 여성",hole:"14번홀",ph:"예: 178m"}
+  {key:"cp_남",label:"클로지스트 투 핀 — 남성",hole:"8번홀 (파3)",ph:"예: 85cm"},
+  {key:"cp_여",label:"클로지스트 투 핀 — 여성",hole:"8번홀 (파3)",ph:"예: 120cm"},
+  {key:"ld_남",label:"롱기스트 드라이브 — 남성",hole:"2번홀 (파5)",ph:"예: 245m"},
+  {key:"ld_여",label:"롱기스트 드라이브 — 여성",hole:"2번홀 (파5)",ph:"예: 178m"}
 ];
 
 let players=[], allScores=[], eventsData={};
